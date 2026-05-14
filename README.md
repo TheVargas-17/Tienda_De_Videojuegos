@@ -1,58 +1,42 @@
-# Documentacion de nuestra tienda de videojuegos
+# Descripcion de nuestra tienda digital de videojuegos
+
 ### Objetivo
-- El objetivo de este proyecto es desarrollar una base de datos relacional para una tienda de videojuegos que permita administrar de manera eficiente la información relacionada con juegos, clientes, consolas y ventas.
-El sistema busca facilitar el control y organización de los registros, mejorar el flujo de información y garantizar la integridad de los datos mediante el uso de claves primarias y foráneas.
-Además, el proyecto pretende aplicar los conocimientos adquiridos sobre modelado de bases de datos y creación de relaciones entre entidades utilizando phpMyAdmin.
+El objetivo de este proyecto es crear una base de datos relacional para una tienda digital de videojuegos. La idea es administrar de forma eficiente la informacion de juegos, clientes, consolas y ventas. Con esto buscamos organizar y controlar los registros, mejorar el flujo de informacion y asegurar la integridad de los datos usando primary keys y llaves foraneas que permiten conectar bien las diferentes entidades.  
+Tambien, este proyecto tiene como proposito aplicar los conocimientos que tenemos en modelado de bases de datos y en la creacion de relaciones entre entidades, utilizando PhpMyAdmin como herramienta principal.
 
 ### Integrantes del equipo
 #### Datos personales
 - Nombre Completo: Leonardo Vargas Lopez
-- Edad:[17]
+- Edad: 17
 - Correo Electronico: 23308060610434@cetis61.edu.mx
 - Especialidad: Programacion
-- Institucion: [Cetis61]
+- Institucion: Cetis61
   #### fotografia
   <img width="236" height="248" alt="image" src="https://github.com/user-attachments/assets/e526fa82-66ea-4b21-9d92-b7ee81f6ef2d" />
 
  #### Datos personales
 - Nombre Completo: Víctor Manuel Jacobo Hernández
-- Edad:[17]
+- Edad: 17
 - Correo Electronico: 23308060610160@cetis61.edu.mx
 - Especialidad: Programacion
-- Institucion: [Cetis61]
+- Institucion: Cetis61
   #### fotografia
 <img width="236" height="248" alt="image" src="https://github.com/user-attachments/assets/494a8f96-0f8c-422e-a2de-f6f6f6474367" />
-
----
-
-
-
-# Tienda de Videojuegos
 
 
 
 ### Problema
-[cite_start]actualmente, diversas tiendas de videojuegos operan bajo esquemas de registro manual. [cite: 32] Esta falta de digitalización conlleva riesgos críticos como:
-* [cite_start]**Errores de Inventario:** Desfase entre existencias físicas y registros. [cite: 32]
-* [cite_start]**Pérdida de Información:** Vulnerabilidad ante extravío de datos de ventas. [cite: 32]
-* [cite_start]**Dificultad Administrativa:** Complejidad para rastrear las compras de los clientes de forma eficiente. [cite: 32]
+Actualmente, muchas tiendas digitales de videojuegos manejan sus registros de forma manual, lo que genera problemas como:  
+* **Desajuste de inventario**: lo anotado no siempre coincide con lo que realmente hay disponible.  
+* **Perdida de informacion**: si se extravia un archivo o documento, se pierden datos importantes de ventas.  
+* **Dificultad de rastreo**: no se puede identificar facilmente que compro cada cliente ni cuando, lo que complica ofrecer un buen servicio o promociones personalizadas.  
 
-### 🎯 Objetivo del Sistema
-[cite_start]El propósito fundamental de este proyecto es implementar una base de datos relacional robusta que centralice y automatice la administración de juegos, clientes, consolas y transacciones. [cite: 37] [cite_start]Se busca garantizar la integridad de los datos y optimizar el flujo de información mediante un diseño técnico estandarizado. [cite: 38]
+### Modelo de Informacion
+La arquitectura se sostiene en cuatro entidades principales interconectadas:  
+1. **Consolas**: catalogo de plataformas disponibles.  
+2. **Juegos**: control de stock, titulos y precios vinculados a hardware especifico.  
+3. **Clientes**: registro detallado de usuarios para mantener un historial claro de compras.  
+4. **Ventas**: modulo que conecta al cliente con el producto adquirido.  
 
-### 🛠️ Arquitectura Técnica (Stack de Desarrollo)
-El sistema ha sido desarrollado bajo los siguientes pilares de ingeniería de datos:
-* [cite_start]**Gestor de Base de Datos:** MariaDB / MySQL administrado a través de **phpMyAdmin**. [cite: 39, 103]
-* [cite_start]**Lenguaje de Estructuración:** SQL (Structured Query Language). [cite: 28, 111]
-* [cite_start]**Normalización:** Aplicación estricta de la **Primera, Segunda y Tercera Forma Normal (1FN, 2FN, 3FN)** para eliminar redundancias y dependencias innecesarias. [cite: 24, 25, 26, 95]
-
-### 📊 Modelo de Información
-[cite_start]La arquitectura se sostiene en cuatro entidades principales interconectadas: [cite: 33, 34, 35]
-
-1.  [cite_start]**Consolas:** Catálogo maestro de plataformas. [cite: 56, 57]
-2.  [cite_start]**Juegos:** Control de stock, títulos y precios vinculados a hardware específico. [cite: 61, 62]
-3.  [cite_start]**Clientes:** Registro detallado de usuarios para trazabilidad comercial. [cite: 69, 70]
-4.  [cite_start]**Ventas:** Módulo transaccional que unifica al cliente con el producto mediante llaves foráneas. [cite: 75, 76, 116]
-
----
-[cite_start]**Desarrollado como solución integral para la digitalización de inventarios y control de ventas.** [cite: 119, 120]
+### Objetivo General
+Este modelo busca digitalizar inventarios y controlar ventas de manera confiable, reduciendo errores y mejorando la experiencia del cliente en una tienda digital de videojuegos.
