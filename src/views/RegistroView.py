@@ -1,34 +1,20 @@
 import flet as ft
-from datetime import datetime
+
 
 def RegistroView(page: ft.Page, auth_controller):
-    
-    def ver_contra(e):
-        contrasena.password = not contrasena.password
+
+    def mostrar(msg):
+        page.snack_bar = ft.SnackBar(ft.Text(msg))
+        page.snack_bar.open = True
         page.update()
-        
-    nombre = ft.TextField(
-        label="Nombre",
-        width=135,
-        prefix_icon=ft.Icons.BADGE
-    )
 
-    apellido = ft.TextField(
-        label="Apellido",
-        width=135
-    )
+    nombre = ft.TextField(label="Nombre", width=135, prefix_icon=ft.Icons.BADGE)
 
-    telefono = ft.TextField(
-        label="Teléfono",
-        width=280,
-        prefix_icon=ft.Icons.CALL
-    )
+    apellido = ft.TextField(label="Apellido", width=135)
 
-    correo = ft.TextField(
-        label="Correo",
-        width=280,
-        prefix_icon=ft.Icons.PERSON
-    )
+    telefono = ft.TextField(label="Teléfono", width=280, prefix_icon=ft.Icons.CALL)
+
+    correo = ft.TextField(label="Correo", width=280, prefix_icon=ft.Icons.PERSON)
 
     contrasena = ft.TextField(
         label="Contraseña",
@@ -39,26 +25,21 @@ def RegistroView(page: ft.Page, auth_controller):
     )
 
     def registra(e):
-        if not nombre.value or not apellido.value or not correo.value or not contrasena.value or not telefono.value:
-            page.snack_bar = ft.SnackBar(ft.Text("Por favor, complete todos los campos"))
-            page.snack_bar.open = True
-            page.update()
-            return
-        
-        fecha = datetime.now().strftime("%Y-%m-%d")
 
-        user, msg = auth_controller.registrar_Usuario(
+        if not nombre.value or not apellido.value or not correo.value or not contrasena.value or not telefono.value:
+            mostrar("Por favor, complete todos los campos")
+            return
+
+
+        user, msg = auth_controller.registrar_usuario(
             nombre.value,
-            apellido.value,
+            telefono.value,   
+            apellido.value,  
             correo.value,
-            contrasena.value,
-            telefono.value,
-            fecha
+            contrasena.value
         )
 
-        page.snack_bar = ft.SnackBar(ft.Text(msg))
-        page.snack_bar.open = True
-        page.update()
+        mostrar(msg)
 
         if user:
             page.go("/")
@@ -69,24 +50,13 @@ def RegistroView(page: ft.Page, auth_controller):
         on_click=registra
     )
 
-    def regresar(e):
-        page.go("/")
-
-    reversa = ft.TextButton(
-        "Volver al login",
-        on_click=regresar
-    )
+    reversa = ft.TextButton("Volver al login", on_click=lambda e: page.go("/"))
 
     contenido = ft.Container(
         content=ft.Column(
             [
                 ft.Text("Crear cuenta", size=22, weight="bold"),
-                
-                ft.Row(
-                    [nombre, apellido],
-                    alignment=ft.MainAxisAlignment.CENTER
-                ),
-                
+                ft.Row([nombre, apellido], alignment=ft.MainAxisAlignment.CENTER),
                 telefono,
                 correo,
                 contrasena,

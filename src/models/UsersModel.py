@@ -11,28 +11,29 @@ class UsuarioModel:
         cursor = conn.cursor(dictionary=True)
 
         try:
-            # verificar duplicado
+            # verificar duplicado por correo
             cursor.execute(
-                "SELECT * FROM usuario WHERE correo=%s",
+                "SELECT * FROM clientes WHERE correo=%s",
                 (usuario.correo,)
             )
             if cursor.fetchone():
                 return False
 
+            # encriptar contraseña
             hashed = bcrypt.hashpw(
                 usuario.contrasena.encode('utf-8'),
                 bcrypt.gensalt()
             )
 
+            # insertar en clientes
             cursor.execute(
                 """
-                INSERT INTO usuario (nombre, apellidos, edad, correo, contrasena)
-                VALUES (%s, %s, %s, %s, %s)
+                INSERT INTO clientes (nombre, telefono, correo, contrasena)
+                VALUES (%s, %s, %s, %s)
                 """,
                 (
                     usuario.nombre,
-                    usuario.apellidos,
-                    usuario.edad,
+                    usuario.telefono,
                     usuario.correo,
                     hashed.decode('utf-8')
                 )
@@ -54,7 +55,7 @@ class UsuarioModel:
 
         try:
             cursor.execute(
-                "SELECT * FROM usuario WHERE correo=%s",
+                "SELECT * FROM clientes WHERE correo=%s",
                 (correo,)
             )
             user = cursor.fetchone()
