@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class Database:
     @staticmethod
     def get_connection():
@@ -11,5 +12,5 @@ class Database:
             host="localhost",
             user="root",
             password="",
-            database="registro"
+            database="tienda_videojuegos"
         )

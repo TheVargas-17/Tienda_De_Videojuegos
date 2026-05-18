@@ -1,44 +1,40 @@
 import bcrypt
 from models.databaseModel import Database
 
+
 class UsuarioModel:
     def __init__(self):
         self.db = Database()
 
-    def registrar(self, usuario_data):
+    def registrar(self, usuario):
         conn = self.db.get_connection()
         cursor = conn.cursor(dictionary=True)
 
         try:
-            # verificar si existe
+            # verificar duplicado
             cursor.execute(
-                "SELECT * FROM usuario WHERE email=%s",
-                (usuario_data.email,)
+                "SELECT * FROM usuario WHERE correo=%s",
+                (usuario.correo,)
             )
-            user = cursor.fetchone()
-
-            if user:
+            if cursor.fetchone():
                 return False
 
-            # hash password
-            hashed_pw = bcrypt.hashpw(
-                usuario_data.password.encode('utf-8'),
+            hashed = bcrypt.hashpw(
+                usuario.contrasena.encode('utf-8'),
                 bcrypt.gensalt()
             )
 
             cursor.execute(
                 """
-                INSERT INTO usuario 
-                (nombre, apellido, email, contrasena, telefono, fecha_registro)
-                VALUES (%s, %s, %s, %s, %s, %s)
+                INSERT INTO usuario (nombre, apellidos, edad, correo, contrasena)
+                VALUES (%s, %s, %s, %s, %s)
                 """,
                 (
-                    usuario_data.nombre,
-                    usuario_data.apellido,
-                    usuario_data.email,
-                    hashed_pw.decode('utf-8'),
-                    usuario_data.telefono,
-                    usuario_data.fecha
+                    usuario.nombre,
+                    usuario.apellidos,
+                    usuario.edad,
+                    usuario.correo,
+                    hashed.decode('utf-8')
                 )
             )
 
@@ -52,42 +48,14 @@ class UsuarioModel:
         finally:
             conn.close()
 
-    def modificar_perfil(self, id_usuario, nombre, apellido, telefono):
-        conn = self.db.get_connection()
-        cursor = conn.cursor()
-
-        try:
-            cursor.execute(
-                "UPDATE usuario SET nombre=%s WHERE id_usuario=%s",
-                (nombre, id_usuario)
-            )
-            cursor.execute(
-                "UPDATE usuario SET apellido=%s WHERE id_usuario=%s",
-                (apellido, id_usuario)
-            )
-            cursor.execute(
-                "UPDATE usuario SET telefono=%s WHERE id_usuario=%s",
-                (telefono, id_usuario)
-            )
-
-            conn.commit()
-            return True
-
-        except Exception as e:
-            print("ERROR MODIFICAR:", e)
-            return False
-
-        finally:
-            conn.close()
-
-    def validar_login(self, email, password):
+    def validar_login(self, correo, contrasena):
         conn = self.db.get_connection()
         cursor = conn.cursor(dictionary=True)
 
         try:
             cursor.execute(
-                "SELECT * FROM usuario WHERE email=%s",
-                (email,)
+                "SELECT * FROM usuario WHERE correo=%s",
+                (correo,)
             )
             user = cursor.fetchone()
 
@@ -95,19 +63,9 @@ class UsuarioModel:
                 return None
 
             if bcrypt.checkpw(
-                password.encode('utf-8'),
+                contrasena.encode('utf-8'),
                 user['contrasena'].encode('utf-8')
             ):
-                cursor.execute(
-                    """
-                    UPDATE usuario 
-                    SET ultimo_ingreso = NOW(), activo='activo'
-                    WHERE id_usuario=%s
-                    """,
-                    (user["id_usuario"],)
-                )
-
-                conn.commit()
                 return user
 
             return None
@@ -115,24 +73,6 @@ class UsuarioModel:
         except Exception as e:
             print("ERROR LOGIN:", e)
             return None
-
-        finally:
-            conn.close()
-
-    def cerrar_sesion(self, id_usuario):
-        conn = self.db.get_connection()
-        cursor = conn.cursor()
-
-        try:
-            cursor.execute(
-                "UPDATE usuario SET activo='inactivo' WHERE id_usuario=%s",
-                (id_usuario,)
-            )
-
-            conn.commit()
-
-        except Exception as e:
-            print("ERROR LOGOUT:", e)
 
         finally:
             conn.close()

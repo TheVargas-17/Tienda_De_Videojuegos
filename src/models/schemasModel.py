@@ -1,16 +1,9 @@
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional
-from datetime import date, time
 
-class UsuarioBaseShema(BaseModel):
-    nombre: str= Field(min_length=3, max_length=100)
-    apellido: Optional[str] = None
-    email: EmailStr
-    password: str= Field(min_length=8)
-    telefono: Optional[str] = None
-    fecha: Optional[str] = None
-    
-class UsuarioShema(UsuarioBaseShema):
-    email: EmailStr
-    password: str= Field(min_length=8)
 
+class UsuarioSchema(BaseModel):
+    nombre: str = Field(min_length=2, max_length=100)
+    apellidos: str = Field(min_length=2, max_length=150)
+    edad: int = Field(ge=0, le=120)
+    correo: EmailStr
+    contrasena: str = Field(min_length=8)

@@ -1,53 +1,44 @@
 from models.UsersModel import UsuarioModel
-from models.schemasModel import UsuarioShema
+from models.schemasModel import UsuarioSchema
 from pydantic import ValidationError
 
+
 class AuthController:
+
     def __init__(self):
         self.model = UsuarioModel()
 
-    def registrar_Usuario(self, nombre, apellido, email, contraseña, telefono, fecha):
+    def registrar_usuario(self, nombre, apellidos, edad, correo, contrasena):
         try:
-            nuevo_usuario = UsuarioShema(
+            nuevo = UsuarioSchema(
                 nombre=nombre,
-                apellido=apellido,
-                email=email,
-                password=contraseña,
-                telefono=telefono,
-                fecha=fecha
+                apellidos=apellidos,
+                edad=edad,
+                correo=correo,
+                contrasena=contrasena
             )
 
-            success = self.model.registrar(nuevo_usuario)
+            success = self.model.registrar(nuevo)
 
             if success:
                 return True, "Usuario creado correctamente"
-            else:
-                return False, "El usuario ya existe o hubo un error"
+            return False, "El usuario ya existe"
 
         except ValidationError as e:
             return False, e.errors()[0]['msg']
 
         except Exception as e:
             print("ERROR REGISTRO:", e)
-            return False, "Error interno al registrar"
+            return False, "Error interno"
 
-    def modificar(self, id_usuario, nombre, apellido, telefono):
+    def login(self, correo, contrasena):
         try:
-            return self.model.modificar_perfil(id_usuario, nombre, apellido, telefono)
-
-        except Exception as e:
-            print("ERROR MODIFICAR:", e)
-            return False
-
-    def login(self, email, password):
-        try:
-            user = self.model.validar_login(email, password)
+            user = self.model.validar_login(correo, contrasena)
 
             if user:
                 return user, "Login correcto"
-            else:
-                return None, "Credenciales incorrectas"
+            return None, "Credenciales incorrectas"
 
         except Exception as e:
             print("ERROR LOGIN:", e)
-            return None, "Error en login"
+            return None, "Error interno"

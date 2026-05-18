@@ -1,5 +1,6 @@
 import flet as ft
 from controllers.UserController import AuthController
+from controllers.TareaController import TareaController
 from views.LoginView import LoginView
 from views.dashboardView import DashboardView
 from views.RegistroView import RegistroView
@@ -12,6 +13,7 @@ def start(page: ft.Page):
     
     # instanciar controladores ua sola
     auth_ctrl = AuthController()
+    task_ctrl = TareaController()
     
     def route_change(e):
         page.views.clear()
@@ -20,7 +22,7 @@ def start(page: ft.Page):
             page.views.append(LoginView(page, auth_ctrl))
             
         elif page.route == "/dashboard":
-            page.views.append(DashboardView(page, ))
+            page.views.append(DashboardView(page, task_ctrl))
         
         elif page.route == "/registro":
             page.views.append(RegistroView(page, auth_ctrl))
