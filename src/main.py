@@ -12,7 +12,7 @@ def start(page: ft.Page):
     page.window_width = 450
     page.window_height = 700
     
-    # instanciar controladores ua sola
+    
     auth_ctrl = AuthController()
     task_ctrl = TareaController()
     

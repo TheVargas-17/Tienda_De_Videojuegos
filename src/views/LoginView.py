@@ -51,6 +51,11 @@ def LoginView(page: ft.Page, auth_controller):
     )
 
     registrarse = ft.TextButton("Crear cuenta", on_click=registro)
+    recuperar = ft.TextButton(
+    "¿Olvidaste tu contraseña?",
+    width=280,
+    on_click=lambda e: page.go("/recuperar")
+)
 
     contenido = ft.Container(
         content=ft.Column(
@@ -59,7 +64,8 @@ def LoginView(page: ft.Page, auth_controller):
                 correo,
                 contra,
                 iniciar,
-                registrarse
+                registrarse,
+                recuperar
             ],
             spacing=15,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER
@@ -70,10 +76,7 @@ def LoginView(page: ft.Page, auth_controller):
         width=320
     )
 
-    ft.TextButton(
-    "¿Olvidaste tu contraseña?",
-    on_click=lambda e: page.go("/recuperar")
-),
+ 
 
     return ft.View(
         route="/",
