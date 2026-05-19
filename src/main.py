@@ -31,7 +31,7 @@ def start(page: ft.Page):
         elif page.route == "/perfil":
             page.views.append(UserView(page, auth_ctrl))
         
-        elif page.route == "/recuperar":
+        elif page.route == "/recupera":
             page.views.append(RecuperarView(page, auth_ctrl))
             
         page.update()
