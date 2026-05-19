@@ -5,6 +5,7 @@ from views.LoginView import LoginView
 from views.dashboardView import DashboardView
 from views.RegistroView import RegistroView
 from views.UserView import UserView
+from views.RecuperarView import RecuperarView
 
 def start(page: ft.Page):
     page.title = "LOGIN"
@@ -29,7 +30,9 @@ def start(page: ft.Page):
             
         elif page.route == "/perfil":
             page.views.append(UserView(page, auth_ctrl))
-     
+        
+        elif page.route == "/recuperar":
+            page.views.append(RecuperarView(page, auth_ctrl))
             
         page.update()
 

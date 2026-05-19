@@ -70,6 +70,11 @@ def LoginView(page: ft.Page, auth_controller):
         width=320
     )
 
+    ft.TextButton(
+    "¿Olvidaste tu contraseña?",
+    on_click=lambda e: page.go("/recuperar")
+),
+
     return ft.View(
         route="/",
         appbar=ft.AppBar(
