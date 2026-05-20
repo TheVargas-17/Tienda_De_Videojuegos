@@ -1,4 +1,3 @@
-# src/models/UsersModel.py
 
 import bcrypt
 from models.databaseModel import Database

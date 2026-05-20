@@ -1,5 +1,5 @@
-# src/controllers/UserController.py
 
+from utils.email_sender import enviar_correo
 from models.UsersModel import UsuarioModel
 from models.schemasModel import UsuarioSchema
 from pydantic import ValidationError
@@ -66,10 +66,21 @@ class AuthController:
                 nueva_contrasena
             )
 
-            if success:
+            if not success:
+
+                return False, "Correo no encontrado"
+
+            enviado = enviar_correo(
+                correo,
+                "Contraseña actualizada",
+                "Tu contraseña fue cambiada correctamente."
+            )
+
+            if enviado:
+
                 return True, "Contraseña actualizada"
 
-            return False, "El correo no existe"
+            return False, "No se pudo enviar el correo"
 
         except Exception as e:
 
