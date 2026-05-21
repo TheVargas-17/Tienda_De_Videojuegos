@@ -44,6 +44,10 @@ def UserView(page, auth_controller):
 
                 padding=30,
 
+                bgcolor=ft.Colors.BLUE_GREY_900,
+
+                border_radius=12,
+
                 content=ft.Column(
 
                     [
@@ -52,27 +56,24 @@ def UserView(page, auth_controller):
                             "Información del usuario",
                             size=28,
                             weight="bold",
-                            color=ft.Colors.BLACK
+                            color=ft.Colors.RED_900
                         ),
 
                         ft.Divider(),
 
                         ft.Text(
                             f"Nombre: {user['nombre'] if user else ''}",
-                            size=20,
-                            color=ft.Colors.BLACK
+                            size=20
                         ),
 
                         ft.Text(
                             f"Correo: {user['correo'] if user else ''}",
-                            size=20,
-                            color=ft.Colors.BLACK
+                            size=20
                         ),
 
                         ft.Text(
                             f"Teléfono: {user['telefono'] if user else ''}",
-                            size=20,
-                            color=ft.Colors.BLACK
+                            size=20
                         )
 
                     ],
@@ -80,9 +81,10 @@ def UserView(page, auth_controller):
                     spacing=15
 
                 )
-
             )
 
-        ]
+        ],
+
+        bgcolor=ft.Colors.BLACK
 
     )

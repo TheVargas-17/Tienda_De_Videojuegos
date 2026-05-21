@@ -77,13 +77,15 @@ def RecuperarView(page: ft.Page, auth_controller):
 
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
 
+        bgcolor=ft.Colors.BLACK,
+
         controls=[
 
             ft.Container(
 
                 width=320,
 
-                bgcolor=ft.Colors.WHITE,
+                bgcolor=ft.Colors.BLUE_GREY_900,
 
                 border_radius=12,
 
@@ -96,7 +98,8 @@ def RecuperarView(page: ft.Page, auth_controller):
                         ft.Text(
                             "Recuperar contraseña",
                             size=22,
-                            weight="bold"
+                            weight="bold",
+                            color=ft.Colors.RED_900
                         ),
 
                         correo,
@@ -108,6 +111,8 @@ def RecuperarView(page: ft.Page, auth_controller):
                         ft.ElevatedButton(
                             "Actualizar contraseña",
                             width=280,
+                            bgcolor=ft.Colors.RED_700,
+                            color=ft.Colors.WHITE,
                             on_click=cambiar
                         ),
 

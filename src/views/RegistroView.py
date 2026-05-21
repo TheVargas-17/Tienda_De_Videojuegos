@@ -66,6 +66,8 @@ def RegistroView(page: ft.Page, auth_controller):
     registrar = ft.ElevatedButton(
         "Registrarse",
         width=280,
+        bgcolor=ft.Colors.RED_700,
+        color="white",
         on_click=registra
     )
 
@@ -80,7 +82,8 @@ def RegistroView(page: ft.Page, auth_controller):
                 ft.Text(
                     "Crear cuenta",
                     size=22,
-                    weight="bold"
+                    weight="bold",
+                    color=ft.Colors.RED_900
                 ),
 
                 nombre,
@@ -127,6 +130,8 @@ def RegistroView(page: ft.Page, auth_controller):
         vertical_alignment=ft.MainAxisAlignment.CENTER,
 
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+
+        bgcolor=ft.Colors.BLACK,
 
         controls=[contenido]
     )

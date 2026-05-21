@@ -47,20 +47,26 @@ def LoginView(page: ft.Page, auth_controller):
     iniciar = ft.ElevatedButton(
         "Iniciar sesión",
         width=280,
+        bgcolor=ft.Colors.RED_700,
+        color="white",
         on_click=login_click
     )
 
-    registrarse = ft.TextButton("Crear cuenta", on_click=registro)
+    registrarse = ft.TextButton(
+        "Crear cuenta",
+        on_click=registro
+    )
     recuperar = ft.TextButton(
-    "¿Olvidaste tu contraseña?",
-    width=280,
-    on_click=lambda e: page.go("/recuperar")
-)
+        "¿Olvidaste tu contraseña?",
+        width=280,
+        on_click=lambda e: page.go("/recuperar")
+    )
 
     contenido = ft.Container(
+        bgcolor=ft.Colors.BLUE_GREY_900,
         content=ft.Column(
             [
-                ft.Text("Acceso", size=22, weight="bold", color=ft.Colors.BLACK),
+                ft.Text("Acceso", size=22, weight="bold", color=ft.Colors.RED_900),
                 correo,
                 contra,
                 iniciar,
@@ -72,7 +78,6 @@ def LoginView(page: ft.Page, auth_controller):
         ),
         padding=25,
         border_radius=12,
-        bgcolor=ft.Colors.WHITE,
         width=320
     )
 
@@ -88,5 +93,6 @@ def LoginView(page: ft.Page, auth_controller):
         ),
         vertical_alignment=ft.MainAxisAlignment.CENTER,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        bgcolor=ft.Colors.BLACK,
         controls=[contenido]
     )
