@@ -1,139 +1,96 @@
 import flet as ft
+from controllers.GameController import GameController
+from controllers.UserController import AuthController
+from views.LoginView import LoginView
+from views.dashboardView import DashboardView
+from views.RegistroView import RegistroView
+from views.UserView import UserView
+from views.RecuperarView import RecuperarView
+from views.ComprasView import ComprasView
 
-def ComprasView(page, game_controller):
 
-    user = getattr(page, "user_data")
+def start(page: ft.Page):
 
-    ventas = game_controller.obtener_compras(user["id_cliente"])
+    page.title = "LOGIN"
 
-    def eliminar_compra(id_venta):
+    page.window_width = 450
+    page.window_height = 700
 
-        game_controller.eliminar_compra(id_venta)
+    auth_ctrl = AuthController()
+    game_ctrl = GameController()
 
-        page.snack_bar = ft.SnackBar(
-            content=ft.Text("Compra eliminada")
-        )
+    def route_change(e):
 
-        page.snack_bar.open = True
+        page.views.clear()
 
-        page.go("/compras")
+        if page.route == "/":
+
+            page.views.append(
+                LoginView(page, auth_ctrl)
+            )
+
+        elif page.route == "/dashboard":
+
+            page.views.append(
+                DashboardView(page, game_ctrl)
+            )
+
+        elif page.route == "/registro":
+
+            page.views.append(
+                RegistroView(page, auth_ctrl)
+            )
+
+        elif page.route == "/perfil":
+
+            page.views.append(
+                UserView(page, auth_ctrl)
+            )
+
+        elif page.route == "/recuperar":
+
+            page.views.append(
+                RecuperarView(page, auth_ctrl)
+            )
+
+        elif page.route == "/compras":
+
+            page.views.append(
+                ComprasView(page, game_ctrl)
+            )
 
         page.update()
 
-    compras = []
+    def view_pop(e):
 
-    for venta in ventas:
+        if len(page.views) > 1:
 
-        id_actual = venta["id_venta"]
+            page.views.pop()
 
-        compras.append(
+            page.update()
 
-            ft.Container(
+            top_view = page.views[-1]
 
-                bgcolor="#1e1e2f",
+            page.go(top_view.route)
 
-                border_radius=15,
+    page.on_route_change = route_change
 
-                padding=15,
+    page.on_view_pop = view_pop
 
-                margin=8,
+    if page.route == "/":
 
-                content=ft.Column(
+        route_change(None)
 
-                    spacing=10,
+    else:
 
-                    controls=[
+        page.go("/")
 
-                        ft.Text(
-                            venta["juego"],
-                            size=20,
-                            weight=ft.FontWeight.BOLD,
-                            color="white"
-                        ),
 
-                        ft.Text(
-                            f"Consola: {venta['consola']}",
-                            color="#d6d6d6"
-                        ),
+def main():
 
-                        ft.Text(
-                            f"Fecha: {venta['fecha']}",
-                            color="#64b5f6"
-                        ),
+    ft.app(start)
 
-                        ft.Row(
 
-                            spacing=10,
+if __name__ == "__main__":
 
-                            controls=[
-
-                                ft.ElevatedButton(
-
-                                    "Eliminar",
-
-                                    bgcolor="#ff1744",
-
-                                    color="white",
-
-                                    on_click=lambda e, id_venta=id_actual: eliminar_compra(id_venta)
-
-                                )
-
-                            ]
-
-                        )
-
-                    ]
-
-                )
-
-            )
-
-        )
-
-    return ft.View(
-
-        route="/compras",
-
-        bgcolor="#121212",
-
-        appbar=ft.AppBar(
-
-            leading=ft.IconButton(
-                icon=ft.Icons.ARROW_BACK,
-                icon_color="white",
-                on_click=lambda _: page.go("/dashboard")
-            ),
-
-            title=ft.Text(
-                "Mis compras",
-                color="white"
-            ),
-
-            bgcolor="#1e1e2f"
-
-        ),
-
-        controls=[
-
-            ft.Container(
-
-                expand=True,
-
-                padding=20,
-
-                content=ft.Column(
-
-                    controls=compras,
-
-                    scroll=ft.ScrollMode.ALWAYS,
-
-                    expand=True
-
-                )
-
-            )
-
-        ]
-
-    )
+    main()

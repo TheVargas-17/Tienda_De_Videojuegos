@@ -1,5 +1,6 @@
 import flet as ft
 
+
 def ComprasView(page, game_controller):
 
     user = getattr(page, "user_data")
@@ -11,7 +12,21 @@ def ComprasView(page, game_controller):
         game_controller.eliminar_compra(id_venta)
 
         page.snack_bar = ft.SnackBar(
-            ft.Text("Compra eliminada")
+            content=ft.Text("Compra eliminada")
+        )
+
+        page.snack_bar.open = True
+
+        page.go("/compras")
+
+        page.update()
+
+    def editar_fecha(id_venta):
+
+        game_controller.actualizar_fecha(id_venta)
+
+        page.snack_bar = ft.SnackBar(
+            content=ft.Text("Fecha actualizada")
         )
 
         page.snack_bar.open = True
@@ -23,6 +38,8 @@ def ComprasView(page, game_controller):
     compras = []
 
     for venta in ventas:
+
+        id_actual = venta["id_venta"]
 
         compras.append(
 
@@ -61,7 +78,21 @@ def ComprasView(page, game_controller):
 
                         ft.Row(
 
+                            spacing=10,
+
                             controls=[
+
+                                ft.ElevatedButton(
+
+                                    "Editar fecha",
+
+                                    bgcolor="#2979ff",
+
+                                    color="white",
+
+                                    on_click=lambda e, id_venta=id_actual: editar_fecha(id_venta)
+
+                                ),
 
                                 ft.ElevatedButton(
 
@@ -71,19 +102,7 @@ def ComprasView(page, game_controller):
 
                                     color="white",
 
-                                    on_click=lambda e, id_venta=venta["id_venta"]: eliminar_compra(id_venta)
-
-                                ),
-
-                                ft.ElevatedButton(
-
-                                    "Volver",
-
-                                    bgcolor="#2b2b40",
-
-                                    color="white",
-
-                                    on_click=lambda _: page.go("/dashboard")
+                                    on_click=lambda e, id_venta=id_actual: eliminar_compra(id_venta)
 
                                 )
 
@@ -107,18 +126,18 @@ def ComprasView(page, game_controller):
 
         appbar=ft.AppBar(
 
+            leading=ft.IconButton(
+                icon=ft.Icons.ARROW_BACK,
+                icon_color="white",
+                on_click=lambda _: page.go("/dashboard")
+            ),
+
             title=ft.Text(
                 "Mis compras",
                 color="white"
             ),
 
-            bgcolor="#1e1e2f",
-
-            leading=ft.IconButton(
-                icon=ft.Icons.ARROW_BACK,
-                icon_color="white",
-                on_click=lambda _: page.go("/dashboard")
-            )
+            bgcolor="#1e1e2f"
 
         ),
 
@@ -126,13 +145,17 @@ def ComprasView(page, game_controller):
 
             ft.Container(
 
+                expand=True,
+
                 padding=20,
 
                 content=ft.Column(
 
                     controls=compras,
 
-                    scroll=ft.ScrollMode.ALWAYS
+                    scroll=ft.ScrollMode.ALWAYS,
+
+                    expand=True
 
                 )
 
