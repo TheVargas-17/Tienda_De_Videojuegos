@@ -11,7 +11,7 @@ def ComprasView(page, game_controller):
         game_controller.eliminar_compra(id_venta)
 
         page.snack_bar = ft.SnackBar(
-            content=ft.Text("Compra eliminada")
+            ft.Text("Compra eliminada")
         )
 
         page.snack_bar.open = True
@@ -23,8 +23,6 @@ def ComprasView(page, game_controller):
     compras = []
 
     for venta in ventas:
-
-        id_actual = venta["id_venta"]
 
         compras.append(
 
@@ -63,8 +61,6 @@ def ComprasView(page, game_controller):
 
                         ft.Row(
 
-                            spacing=10,
-
                             controls=[
 
                                 ft.ElevatedButton(
@@ -75,7 +71,19 @@ def ComprasView(page, game_controller):
 
                                     color="white",
 
-                                    on_click=lambda e, id_venta=id_actual: eliminar_compra(id_venta)
+                                    on_click=lambda e, id_venta=venta["id_venta"]: eliminar_compra(id_venta)
+
+                                ),
+
+                                ft.ElevatedButton(
+
+                                    "Volver",
+
+                                    bgcolor="#2b2b40",
+
+                                    color="white",
+
+                                    on_click=lambda _: page.go("/dashboard")
 
                                 )
 
@@ -99,18 +107,18 @@ def ComprasView(page, game_controller):
 
         appbar=ft.AppBar(
 
-            leading=ft.IconButton(
-                icon=ft.Icons.ARROW_BACK,
-                icon_color="white",
-                on_click=lambda _: page.go("/dashboard")
-            ),
-
             title=ft.Text(
                 "Mis compras",
                 color="white"
             ),
 
-            bgcolor="#1e1e2f"
+            bgcolor="#1e1e2f",
+
+            leading=ft.IconButton(
+                icon=ft.Icons.ARROW_BACK,
+                icon_color="white",
+                on_click=lambda _: page.go("/dashboard")
+            )
 
         ),
 
@@ -118,17 +126,13 @@ def ComprasView(page, game_controller):
 
             ft.Container(
 
-                expand=True,
-
                 padding=20,
 
                 content=ft.Column(
 
                     controls=compras,
 
-                    scroll=ft.ScrollMode.ALWAYS,
-
-                    expand=True
+                    scroll=ft.ScrollMode.ALWAYS
 
                 )
 
