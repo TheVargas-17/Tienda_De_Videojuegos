@@ -75,13 +75,16 @@ CREATE TABLE `juegos` (
   `precio` decimal(10,2) DEFAULT NULL,
   `stock` int(11) DEFAULT NULL,
   `id_consola` int(11) DEFAULT NULL
+  `imagen` varchar(255) DEFAULT NULL
+
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `juegos`
 --
 
-INSERT INTO `juegos` (`id_juego`, `nombre`, `precio`, `stock`, `id_consola`) VALUES
+INSERT INTO `juegos` (`id_juego`, `nombre`, `precio`, `stock`, `id_consola`,`imagen`) VALUES
 (1, 'Spider-Man 2', 1499.99, 10, 1),
 (2, 'God of War Ragnarok', 1399.99, 8, 1),
 (3, 'Halo Infinite', 1299.99, 12, 2),

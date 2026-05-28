@@ -53,12 +53,13 @@ def DashboardView(page, game_controller):
                         border_radius=12,
                         alignment=ft.Alignment(0, 0),
 
-                        content=ft.Image(
-                            src=""      ,
-                            size=60,
-                            color="#ff1744"
-                        )
-                    ),
+                    content=ft.Image(
+        src="src\imgs\spiderman.jpg",  
+        width=260,
+        height=120,
+        fit="cover"
+    )
+),
 
                     ft.Text(
                         juego["nombre"],
