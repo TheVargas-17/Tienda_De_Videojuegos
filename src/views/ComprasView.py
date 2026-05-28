@@ -21,13 +21,7 @@ def ComprasView(page, game_controller):
 
         page.update()
 
-    def editar_fecha(id_venta):
-
-        game_controller.actualizar_fecha(id_venta)
-
-        page.snack_bar = ft.SnackBar(
-            content=ft.Text("Fecha actualizada")
-        )
+    
 
         page.snack_bar.open = True
 
@@ -42,23 +36,14 @@ def ComprasView(page, game_controller):
         id_actual = venta["id_venta"]
 
         compras.append(
-
             ft.Container(
-
                 bgcolor="#1e1e2f",
-
                 border_radius=15,
-
                 padding=15,
-
                 margin=8,
-
                 content=ft.Column(
-
                     spacing=10,
-
                     controls=[
-
                         ft.Text(
                             venta["juego"],
                             size=20,
@@ -81,51 +66,12 @@ def ComprasView(page, game_controller):
                             spacing=10,
 
                             controls=[
-
-                                ft.ElevatedButton(
-
-                                    "Editar fecha",
-
-                                    bgcolor="#2979ff",
-
-                                    color="white",
-
-                                    on_click=lambda e, id_venta=id_actual: editar_fecha(id_venta)
-
-                                ),
-
-                                ft.ElevatedButton(
-
-                                    "Eliminar",
-
-                                    bgcolor="#ff1744",
-
-                                    color="white",
-
-                                    on_click=lambda e, id_venta=id_actual: eliminar_compra(id_venta)
-
-                                )
-
-                            ]
-
-                        )
-
-                    ]
-
-                )
-
-            )
-
-        )
+                                ft.ElevatedButton("Eliminar",bgcolor="#ff1744",color="white",on_click=lambda e, id_venta=id_actual: eliminar_compra(id_venta))])])))
 
     return ft.View(
-
         route="/compras",
-
         bgcolor="#121212",
-
         appbar=ft.AppBar(
-
             leading=ft.IconButton(
                 icon=ft.Icons.ARROW_BACK,
                 icon_color="white",
@@ -136,31 +82,14 @@ def ComprasView(page, game_controller):
                 "Mis compras",
                 color="white"
             ),
-
             bgcolor="#1e1e2f"
-
         ),
-
         controls=[
-
             ft.Container(
-
                 expand=True,
-
                 padding=20,
-
                 content=ft.Column(
-
                     controls=compras,
-
                     scroll=ft.ScrollMode.ALWAYS,
-
                     expand=True
-
-                )
-
-            )
-
-        ]
-
-    )
+                ))])

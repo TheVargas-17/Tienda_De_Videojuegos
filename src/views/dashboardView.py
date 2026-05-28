@@ -53,8 +53,8 @@ def DashboardView(page, game_controller):
                         border_radius=12,
                         alignment=ft.Alignment(0, 0),
 
-                        content=ft.Icon(
-                            ft.Icons.SPORTS_ESPORTS,
+                        content=ft.Image(
+                            src=""      ,
                             size=60,
                             color="#ff1744"
                         )
