@@ -27,6 +27,6 @@ class GameController:
 
         self.model.eliminar_compra(id_venta)
 
-    def actualizar_fecha(self, id_venta):
+    def cambiar_estado(self, id_venta):
 
-        self.model.actualizar_fecha(id_venta)
+        self.model.cambiar_estado(id_venta)
