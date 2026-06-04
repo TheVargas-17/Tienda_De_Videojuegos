@@ -13,7 +13,13 @@ class GameModel:
             cursor = conn.cursor(dictionary=True)
 
             query = """
-                SELECT juegos.*, consolas.nombre_consola
+                SELECT
+                    juegos.id_juego,
+                    juegos.nombre,
+                    juegos.precio,
+                    juegos.stock,
+
+                    consolas.nombre_consola
                 FROM juegos
                 INNER JOIN consolas
                 ON juegos.id_consola = consolas.id_consola
@@ -21,9 +27,7 @@ class GameModel:
 
             cursor.execute(query)
 
-            juegos = cursor.fetchall()
-
-            return juegos
+            return cursor.fetchall()
 
         finally:
             cursor.close()
