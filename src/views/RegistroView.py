@@ -11,27 +11,35 @@ def RegistroView(page: ft.Page, auth_controller):
     nombre = ft.TextField(
         label="Nombre",
         width=280,
-        prefix_icon=ft.Icons.BADGE
+        color=ft.Colors.WHITE,
+        label_style=ft.TextStyle(color=ft.Colors.WHITE),
+        text_style=ft.TextStyle(color=ft.Colors.WHITE)
     )
 
     telefono = ft.TextField(
         label="Teléfono",
         width=280,
-        prefix_icon=ft.Icons.CALL
+        color=ft.Colors.WHITE,
+        label_style=ft.TextStyle(color=ft.Colors.WHITE),
+        text_style=ft.TextStyle(color=ft.Colors.WHITE)
     )
 
     correo = ft.TextField(
         label="Correo",
         width=280,
-        prefix_icon=ft.Icons.PERSON
-    )
+        color=ft.Colors.WHITE,
+        label_style=ft.TextStyle(color=ft.Colors.WHITE),
+        text_style=ft.TextStyle(color=ft.Colors.WHITE)
+        )
 
     contrasena = ft.TextField(
         label="Contraseña",
         width=280,
         password=True,
         can_reveal_password=True,
-        prefix_icon=ft.Icons.LOCK
+        color=ft.Colors.WHITE,
+        label_style=ft.TextStyle(color=ft.Colors.WHITE),
+        text_style=ft.TextStyle(color=ft.Colors.WHITE)
     )
 
     def registra(e):
@@ -87,30 +95,18 @@ def RegistroView(page: ft.Page, auth_controller):
                 ),
 
                 nombre,
-
                 telefono,
-
                 correo,
-
                 contrasena,
-
                 registrar,
-
                 reversa
-
             ],
-
             spacing=15,
-
             horizontal_alignment=ft.CrossAxisAlignment.CENTER
         ),
-
         padding=25,
-
         border_radius=12,
-
-        bgcolor=ft.Colors.WHITE,
-
+        bgcolor=ft.Colors.BLUE_GREY_900,
         width=320
     )
 

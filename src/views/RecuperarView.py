@@ -1,5 +1,6 @@
 import flet as ft
 
+
 def RecuperarView(page: ft.Page, auth_controller):
 
     def mostrar(msg):
@@ -15,7 +16,17 @@ def RecuperarView(page: ft.Page, auth_controller):
     correo = ft.TextField(
         label="Correo",
         width=280,
-        prefix_icon=ft.Icons.EMAIL
+        color=ft.Colors.WHITE,
+        label_style=ft.TextStyle(color=ft.Colors.WHITE),
+        text_style=ft.TextStyle(color=ft.Colors.WHITE)
+    )
+
+    codigo = ft.TextField(
+        label="Código de verificación",
+        width=280,
+        color=ft.Colors.WHITE,
+        label_style=ft.TextStyle(color=ft.Colors.WHITE),
+        text_style=ft.TextStyle(color=ft.Colors.WHITE)
     )
 
     nueva = ft.TextField(
@@ -23,7 +34,9 @@ def RecuperarView(page: ft.Page, auth_controller):
         width=280,
         password=True,
         can_reveal_password=True,
-        prefix_icon=ft.Icons.LOCK
+        color=ft.Colors.WHITE,
+        label_style=ft.TextStyle(color=ft.Colors.WHITE),
+        text_style=ft.TextStyle(color=ft.Colors.WHITE)
     )
 
     confirmar = ft.TextField(
@@ -31,12 +44,33 @@ def RecuperarView(page: ft.Page, auth_controller):
         width=280,
         password=True,
         can_reveal_password=True,
-        prefix_icon=ft.Icons.LOCK
+        color=ft.Colors.WHITE,
+        label_style=ft.TextStyle(color=ft.Colors.WHITE),
+        text_style=ft.TextStyle(color=ft.Colors.WHITE)
     )
+
+    def enviar_codigo(e):
+
+        if not correo.value:
+
+            mostrar("Ingrese un correo")
+
+            return
+
+        success, msg = auth_controller.enviar_codigo_recuperacion(
+            correo.value
+        )
+
+        mostrar(msg)
 
     def cambiar(e):
 
-        if not correo.value or not nueva.value or not confirmar.value:
+        if (
+            not correo.value
+            or not codigo.value
+            or not nueva.value
+            or not confirmar.value
+        ):
 
             mostrar("Complete todos los campos")
 
@@ -50,6 +84,7 @@ def RecuperarView(page: ft.Page, auth_controller):
 
         success, msg = auth_controller.recuperar_contrasena(
             correo.value,
+            codigo.value,
             nueva.value
         )
 
@@ -65,11 +100,8 @@ def RecuperarView(page: ft.Page, auth_controller):
 
         appbar=ft.AppBar(
             title=ft.Text("Recuperar contraseña"),
-
             bgcolor=ft.Colors.BLUE_GREY_900,
-
             color="white",
-
             center_title=True
         ),
 
@@ -82,17 +114,11 @@ def RecuperarView(page: ft.Page, auth_controller):
         controls=[
 
             ft.Container(
-
                 width=320,
-
                 bgcolor=ft.Colors.BLUE_GREY_900,
-
                 border_radius=12,
-
                 padding=25,
-
                 content=ft.Column(
-
                     [
 
                         ft.Text(
@@ -103,6 +129,14 @@ def RecuperarView(page: ft.Page, auth_controller):
                         ),
 
                         correo,
+
+                        ft.ElevatedButton(
+                            "Enviar código",
+                            width=280,
+                            on_click=enviar_codigo
+                        ),
+
+                        codigo,
 
                         nueva,
 
